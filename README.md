@@ -1,1 +1,3 @@
-# K8s_Management_platform
+Infra as Code Platform - UI
+
+![CI](https://github.com/sanjeevmagoo/Infra-As-Code-UI/workflows/CI/badge.svg)
