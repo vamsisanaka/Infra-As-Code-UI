@@ -11,18 +11,33 @@ class Header extends Component {
                 <img
                   height="25px"
                   width="25px"
+                  
                   src="../src/styles/images/kubernetes_1.png"
                   alt="homepage"
                   className="light-logo"
+                  
                 />
               </b>
             </a>
           </div>
+
+          <div className="col-md-5 col-8 align-self-center">
+            <h3 style={{color: 'white'}}>Infosys IaaC Platform</h3>
+          </div>
+        
           <div className="navbar-collapse">
             <ul className="navbar-nav mr-auto mt-md-0">
-              <li className="nav-item">
-                <a className="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark">
-                  <i className="mdi mdi-menu"></i>
+              
+            </ul>
+            <ul className="navbar-nav my-lg-0">
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle text-muted waves-effect waves-dark"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Project 1
                 </a>
               </li>
             </ul>
@@ -39,7 +54,7 @@ class Header extends Component {
                     alt="user"
                     className="profile-pic m-r-10"
                   />
-                  Santhosh
+                  User
                 </a>
               </li>
             </ul>

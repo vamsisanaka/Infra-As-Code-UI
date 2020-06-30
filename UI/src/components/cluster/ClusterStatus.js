@@ -99,7 +99,7 @@ class ClusterStatus extends Component {
           <div className="col-lg-12">
             <div className="card">
               <div className="card-block">
-                <h4 className="card-title">Cluster Management</h4>
+                <h4 className="card-title">Application Management</h4>
                 <div className="col-md-6 pull-left">
                   <input
                     type="text"
@@ -114,13 +114,13 @@ class ClusterStatus extends Component {
                   onClick={this.props.onClick}
                   className="btn pull-right btn-danger"
                 >
-                  Create Cluster
+                  Create Application
                 </button>
                 <div className="table-responsive">
                   <table className="table">
                     <thead>
                       <tr>
-                        <th>Cluster Name</th>
+                        <th>Application Name</th>
                         <th>Status</th>
                         <th>Deployments</th>
                         <th>Utilization</th>

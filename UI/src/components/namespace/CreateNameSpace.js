@@ -97,14 +97,14 @@ class CreateNameSpace extends Component {
       <div className="container-fluid">
         <div className="row page-titles">
           <div className="col-md-5 col-8 align-self-center">
-            <h3 className="text-themecolor">NameSpace Creation</h3>
+            <h3 className="text-themecolor">Resource Creation</h3>
           </div>
         </div>
         <div className="row">
           <div className="col-lg-12">
             <div className="card">
               <div className="card-block">
-                <h4 className="card-title">NameSpace Creation</h4>
+                <h4 className="card-title">Resource Creation</h4>
                 <div className="table-responsive">
                   <form className="form-horizontal form-material">
                     <TextBox
