@@ -30,8 +30,8 @@ class CreateCluster extends Component {
       nodeCount: "",
       owner:'',
       lead:'',
-      clusterName: "",
-      message: "",
+      clusterName: ""
+      /* message: "",
       cloudSrvc: "AzureNative",
       masterCount: "1",
       masterSize: "Standard_B2s",
@@ -44,7 +44,7 @@ class CreateCluster extends Component {
       cloudSrvcMissing: false,
       masterCountMissing: false,
       clusterNameMissing: false,
-      credentialsMissing: false,
+      credentialsMissing: false, */
     };
   };
 
