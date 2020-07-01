@@ -16,17 +16,17 @@ class MenuStore extends EventEmitter {
       },
       {
         id: 2,
-        name: Menu.CLUSTER_MANAGEMENT,
+        name: Menu.APPLICATIONS,
         isActive: false,
       },
       {
         id: 3,
-        name: Menu.SECURITY,
+        name: Menu.BLUEPRINTS,
         isActive: false,
       },
       {
         id: 4,
-        name: Menu.NAMESPACE,
+        name: Menu.RESOURCES,
         isActive: false,
       },
     ];
@@ -41,21 +41,27 @@ class MenuStore extends EventEmitter {
         break;
     }
   };
+
   updateMenu = (item) => {
+    console.log('updateMenu', item);
     const _items = Object.assign([], this.items).map((i) => {
       i.isActive = false;
+      console.log('id', i.id, item.id)
       if (i.id === item.id) {
         i.isActive = true;
       }
       return i;
     });
   };
+
   getSelectedMenu = () => {
     return this.items.find((i) => i.isActive);
   };
+
   addEventListener = (eventName, callBack) => {
     this.on(eventName, callBack);
   };
+  
   removeEventListener = (eventName, callBack) => {
     this.removeListener(eventName, callBack);
   };

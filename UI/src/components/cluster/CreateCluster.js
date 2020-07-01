@@ -27,13 +27,15 @@ class CreateCluster extends Component {
 
   getInitialState = () => {
     return {
+      nodeCount: "",
+      owner:'',
+      lead:'',
+      clusterName: "",
       message: "",
       cloudSrvc: "AzureNative",
       masterCount: "1",
-      nodeCount: "",
       masterSize: "Standard_B2s",
       nodeSize: "Standard_B1ms",
-      clusterName: "",
       credentials: "",
       imageName: "Ubuntu",
       kubeDashboard: "KubernetesDashboard",
@@ -144,43 +146,48 @@ class CreateCluster extends Component {
       nodeSize,
     });
   };
+  
   handleSubmit = (event) => {
     event.preventDefault();
-    const { nodeCount, clusterName, cloudSrvc, credentials } = this.state;
+    console.log('submit', this.state);
+    const {clusterName, appID } = this.state;
 
-    if (!nodeCount || !clusterName || !cloudSrvc || !credentials) {
+    if (!clusterName) {
       this.setState({
         message: messages.CLUSTER.FIELD_MISSING,
-        nodeCountMissing: !nodeCount,
-        cloudSrvcMissing: !cloudSrvc,
         clusterNameMissing: !clusterName,
-        credentialsMissing: !credentials,
       });
       return false;
     }
 
-    const requestParams = {
+    const requestParams = {/* 
       cloudSrvc: this.state.cloudSrvc,
       masterCount:
         this.state.cloudSrvc === "AzureNative"
           ? this.state.masterCount
-          : undefined,
-      nodeCount: this.state.nodeCount,
+          : undefined, 
       masterSize:
         this.state.cloudSrvc === "AzureNative"
           ? this.state.masterSize
           : undefined,
       nodeSize: this.state.nodeSize,
-      clusterName: this.state.clusterName,
       imageName: this.state.imageName ? this.state.imageName : "Ubuntu",
       kubeDashboard: this.state.kubeDashboard,
       loggingEnabled: this.state.loggingEnabled,
       monitoringEnabled: this.state.monitoringEnabled,
-      credentialName: this.state.credentials,
+      credentialName: this.state.credentials,*/
+      kubeDashboard: this.state.kubeDashboard,
+      nodeCount: this.state.nodeCount ? this.state.nodeCount : Date.now(),
+      clusterName: this.state.clusterName,
+      owner: this.state.owner,
+      lead:this.state.lead,
     };
+    console.log('asd',requestParams)
+
     Object.keys(requestParams).map(
       (key) => requestParams[key] === undefined && delete requestParams[key]
     );
+
     ClusterActionCreator.createCluster(requestParams);
   };
 
@@ -192,25 +199,26 @@ class CreateCluster extends Component {
       <div className="container-fluid">
         <div className="row page-titles">
           <div className="col-md-5 col-8 align-self-center">
-            <h3 className="text-themecolor">Cluster Creation</h3>
+            <h3 className="text-themecolor">Application Creation</h3>
           </div>
         </div>
         <div className="row">
           <div className="col-lg-12">
             <div className="card">
               <div className="card-block">
-                <h3 className="card-title">Create Cluster</h3>
+                <h3 className="card-title">Create Application</h3>
                 <button
                   id={"backToStatus"}
                   onClick={this.props.onClick}
                   className="btn pull-right btn-danger"
                 >
-                  Back To Status
+                  Back To Details
                 </button>
                 <div className="table-responsive">
                   <form className="form-horizontal form-material">
+                    
                     <div className="form-group">
-                      <label className="col-md-12 required">Cluster Name</label>
+                      <label className="col-md-12 required">Application Name</label>
                       <div className="col-md-12">
                         <input
                           type="text"
@@ -225,16 +233,10 @@ class CreateCluster extends Component {
                         />
                       </div>
                     </div>
-                    <DropDown
-                      data={this.state.lookupData.provider}
-                      value={this.state.cloudSrvc}
-                      onChange={this.handleOnProviderChange}
-                      mandatory={this.state.cloudSrvcMissing}
-                      required={true}
-                    />
+                    
                     <div className="form-group">
                       <label className="col-md-12 required">
-                        Number of Worker Nodes
+                        Application ID
                       </label>
                       <div className="col-md-12">
                         <input
@@ -250,103 +252,48 @@ class CreateCluster extends Component {
                         />
                       </div>
                     </div>
-                    {this.state.cloudSrvc === "AzureNative" ? (
-                      <div className="form-group">
-                        <label className="col-md-12 required">
-                          Number of Master Nodes
-                        </label>
-                        <div className="col-md-12">
-                          <input
-                            type="text"
-                            required
-                            disabled
-                            value={this.state.masterCount}
-                            onChange={this.handleOnChange}
-                            className={classNames(
-                              "form-control form-control-line",
-                              this.state.masterCountMissing ? "mandatory" : ""
-                            )}
-                          />
-                        </div>
-                      </div>
-                    ) : null}
-                    {this.state.cloudSrvc === "AzureNative" ? (
-                      <DropDown
-                        data={this.state.lookupData.masterInstTypes}
-                        value={this.state.masterSize}
-                        onChange={this.handleOnChange}
-                      />
-                    ) : null}
-                    <DropDown
-                      data={this.state.lookupData.workerInstTypes}
-                      value={this.state.nodeSize}
-                      onChange={this.handleOnChange}
-                    />
-                    <DropDown
-                      data={this.state.lookupData.imageName}
-                      value={this.state.imageName}
-                      onChange={this.handleOnChange}
-                    />
-                    <DropDown
-                      data={this.state.lookupData.dashboard}
-                      value={this.state.kubeDashboard}
-                      onChange={this.handleOnChange}
-                    />
+
                     <div className="form-group">
-                      <label className="col-sm-12">Enable Logging</label>
-                      <div className="col-sm-12">
+                      <label className="col-md-12 required">Owner</label>
+                      <div className="col-md-12">
                         <input
-                          type="radio"
-                          name="loggingEnabled"
-                          id="log_yes"
-                          value={"Y"}
-                          defaultChecked
+                          type="text"
+                          name="owner"
+                          required
+                          value={this.state.owner}
                           onChange={this.handleOnChange}
+                          className={classNames(
+                            "form-control form-control-line",
+                            this.state.clusterNameMissing ? "mandatory" : ""
+                          )}
                         />
-                        <label htmlFor="log_yes">Yes</label>
-                      </div>
-                      <div className="col-sm-12">
-                        <input
-                          type="radio"
-                          name="loggingEnabled"
-                          id="log_no"
-                          value={"N"}
-                          onChange={this.handleOnChange}
-                        />
-                        <label htmlFor="log_no">No</label>
                       </div>
                     </div>
+
                     <div className="form-group">
-                      <label className="col-sm-12">Enable Monitoring</label>
-                      <div className="col-sm-12">
+                      <label className="col-md-12 required">App Lead</label>
+                      <div className="col-md-12">
                         <input
-                          type="radio"
-                          name="monitoringEnabled"
-                          id="monitor_yes"
-                          value={"Y"}
+                          type="text"
+                          name="lead"
+                          required
+                          value={this.state.lead}
                           onChange={this.handleOnChange}
+                          className={classNames(
+                            "form-control form-control-line",
+                            this.state.clusterNameMissing ? "mandatory" : ""
+                          )}
                         />
-                        <label htmlFor="monitor_yes">Yes</label>
-                      </div>
-                      <div className="col-sm-12">
-                        <input
-                          type="radio"
-                          name="monitoringEnabled"
-                          id="monitor_no"
-                          value={"N"}
-                          defaultChecked
-                          onChange={this.handleOnChange}
-                        />
-                        <label htmlFor="monitor_no">No</label>
                       </div>
                     </div>
-                    <DropDown
+                    
+{/*                     <DropDown
                       data={this.state.lookupData.credentials}
                       value={this.state.credentials}
                       onChange={this.handleOnChange}
                       mandatory={this.state.credentialsMissing}
                       required={true}
-                    />
+                    /> */}
 
                     <div className="form-group float-left">
                       <div className="col-sm-10">

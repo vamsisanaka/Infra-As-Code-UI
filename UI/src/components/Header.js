@@ -29,18 +29,7 @@ class Header extends Component {
             <ul className="navbar-nav mr-auto mt-md-0">
               
             </ul>
-            <ul className="navbar-nav my-lg-0">
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle text-muted waves-effect waves-dark"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Project 1
-                </a>
-              </li>
-            </ul>
+
             <ul className="navbar-nav my-lg-0">
               <li className="nav-item dropdown">
                 <a

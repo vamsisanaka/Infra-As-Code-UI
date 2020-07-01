@@ -35,7 +35,7 @@ class ClusterWrapper extends Component {
   };
 
   handleToggle = () => {
-    console.log("handleToggle---");
+    //console.log("handleToggle---");
     this.setState({
       isStatus: !this.state.isStatus,
       isIframe: false,
@@ -85,7 +85,7 @@ class ClusterWrapper extends Component {
           );
         })
       : [];
-    console.log("filteredData---", filteredData);
+    //console.log("filteredData---", filteredData);
     return filteredData;
   };
   updateClusterStatus = (result) => {

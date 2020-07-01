@@ -27,17 +27,18 @@ class PageWrapper extends Component {
   componentToRender = () => {
     let component = <UnderConstruction />;
     const selectedMenu = MenuStore.getSelectedMenu();
+    console.log('selecMen', selectedMenu);
     switch (selectedMenu.name) {
       case Menu.DASHBOARD:
         component = <DashBoard />;
         break;
-      case Menu.CLUSTER_MANAGEMENT:
+      case Menu.APPLICATIONS:
         component = <ClusterWrapper />;
         break;
-      case Menu.SECURITY:
+      case Menu.BLUEPRINTS:
         component = <Security />;
         break;
-      case Menu.NAMESPACE:
+      case Menu.RESOURCES:
         component = <NameSpace />;
         break;
       default:
