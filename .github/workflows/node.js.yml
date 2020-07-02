@@ -24,7 +24,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install --prefix./UI
-    - run: npm run build --prefix./UI
+   # - run: npm run build --prefix./UI
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2
       with:
