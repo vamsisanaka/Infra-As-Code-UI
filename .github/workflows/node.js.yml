@@ -31,5 +31,5 @@ jobs:
       # Artifact name
         name: testUI
       # A file, directory or wildcard pattern that describes what to upload
-        path: vamsisanaka/Infra-As-Code-UI
+        path: UI
    
