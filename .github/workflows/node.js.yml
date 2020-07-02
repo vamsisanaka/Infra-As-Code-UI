@@ -13,7 +13,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [14.x]
   
     steps:
     - uses: actions/checkout@v2
@@ -21,8 +23,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm run build --prefix-UI
+    - run: npm install --prefix./UI
+    - run: npm run build --prefix./UI
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2
       with:
